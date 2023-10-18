@@ -1,0 +1,83 @@
+The clickhouse-driver is a Python client library for ClickHouse, an open-source columnar database. It allows you to connect to a ClickHouse server and interact with the database. Here are some basic examples of how to use the clickhouse-driver:
+
+1. Install clickhouse-driver:
+
+You can install clickhouse-driver using pip:
+
+bash
+
+pip install clickhouse-driver
+
+2. Import the Library:
+
+You need to import the clickhouse_driver module in your Python script:
+
+python
+
+from clickhouse_driver import Client
+
+3. Connecting to ClickHouse:
+
+You can create a connection to a ClickHouse server by providing the server URL:
+
+python
+
+client = Client('clickhouse://your_clickhouse_server')
+
+4. Executing SQL Queries:
+
+You can execute SQL queries using the execute method:
+
+python
+
+# Execute a simple SELECT query
+query = 'SELECT * FROM your_table'
+result = client.execute(query)
+
+# Loop through the result set
+for row in result:
+    print(row)
+
+5. Inserting Data:
+
+You can insert data into a ClickHouse table using the execute method as well. Here's an example of inserting a row of data:
+
+python
+
+# Insert data into a table
+insert_query = 'INSERT INTO your_table (col1, col2) VALUES (%s, %s)'
+data_to_insert = (value1, value2)  # Replace with actual values
+client.execute(insert_query, [data_to_insert])
+
+6. Using Pandas DataFrames:
+
+You can also work with ClickHouse data using Pandas DataFrames. You can convert the result of a query into a Pandas DataFrame for easier data manipulation:
+
+python
+
+import pandas as pd
+
+query = 'SELECT * FROM your_table'
+result = client.execute(query)
+
+df = pd.DataFrame(result, columns=['col1', 'col2'])
+
+7. Disconnecting from ClickHouse:
+
+Don't forget to close the connection when you're done:
+
+python
+
+client.disconnect()
+
+8. Using ClickHouse Databases:
+
+You can specify the database to use within your connection URL:
+
+python
+
+client = Client('clickhouse://your_clickhouse_server/your_database')
+
+This allows you to interact with tables and data within that specific database.
+
+These are some basic examples of how to use the clickhouse-driver to connect to a ClickHouse database, execute queries, insert data, and work with result sets. The library supports more advanced features like query parameters, batching, and working with complex data types, among others. Be sure to consult the official documentation and ClickHouse documentation for more details: clickhouse-driver GitHub.
